@@ -40,9 +40,13 @@ const register = async (req, res) => {
 			password: hashedPassword,
 		});
 
-		res
-			.status(201)
-			.json({ message: "Usuario registrado correctamente.", user: newUser });
+		const createdUser = User.findOne({ where: { email } });
+
+		const token = jwt.sign({ userId: createdUser.id }, jwtSecret, {
+			expiresIn: "1h",
+		});
+
+		res.status(201).json({ user: newUser, token });
 	} catch (error) {
 		// Manejo de errores de Sequelize (por ejemplo, email duplicado)
 		if (error.name === "SequelizeUniqueConstraintError") {
