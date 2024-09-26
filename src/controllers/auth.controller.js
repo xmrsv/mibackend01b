@@ -3,7 +3,7 @@ import User from '../models/user.model.js';
 import jwt from 'jsonwebtoken';
 
 // Obtener la sal y el secreto JWT del archivo .env
-const salt = process.env.SALT;
+const salt = process.env.SALT || "ultra secret"; // Obtener la sal
 const jwtSecret = process.env.JWT_SECRET || "ultra secret"; // Obtener el secreto JWT
 
 // Controlador para registrar un nuevo usuario
